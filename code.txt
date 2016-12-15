@@ -1,0 +1,210 @@
+ public static void main (String args [])
+        throws IOException
+    {
+        //String username = "USERNAME";
+        String username ="******";
+        //String password = "PASSWORD";
+        String password = "******";
+        String ename;
+       int selection = 0;
+        int  menuChoice = 0;
+
+        keyboard = new BufferedReader(new InputStreamReader (System.in));
+        Scanner keyboardChoice = new Scanner(System.in);
+        Scanner keyboardUser = new Scanner(System.in);
+        try { //Errors will throw a "SQLException" (caught below)
+
+            // Load the Oracle JDBC driver
+           DriverManager.registerDriver(new oracle.jdbc.driver.OracleDriver());
+
+            System.out.println("Registered the driver...");
+
+            // Connect to the database.  The first argument is the
+            // connection string, the second is your username, the third is
+            // your password.
+            conn = DriverManager.getConnection (
+                         "jdbc:oracle:thin:@toolman.wiu.edu:1521:orcl",
+                        username, password);
+
+            System.out.println("logged into oracle as " + username);
+while(user != 3) {	//Select User
+										System.out.print(" Which part of the program do you want to access? ");
+										System.out.print("Enter 1 for Secretary or anyone involed in customer service. \n");
+										 System.out.print("Enter 2 for Salesman. \n");
+										 System.out.print("Enter 3 to exit \n");
+Scanner keyboarduser = new Scanner(System.in);
+ do
+                {
+               	System.out.print("Enter 1 to Find all the subscriptions a subscriber currently has. \n");
+													System.out.print("Enter 2 to Look up contracts or type of printing that was done by a certain employee  \n");
+													System.out.print("Enter 3 to Insert  \n");
+													System.out.print("Enter 4 to update \n");
+													System.out.print("Enter 5 to delete  \n");
+
+ 	System.out.print("Enter 6 to look up all publications for a certain business  \n");
+
+													if(user = 2){ //Print all selections 
+	{												System.out.print("Enter 7 to Look up publications that an advertiser has an ad space \n");
+													System.out.print("Enter 8 to view which businesses  are also advertisers     \n");
+													System.out.print("Enter 9 to view Which advertisers ad on a type of print    \n");
+}
+                System.out.print("Choose an operation(1-9): ");
+                //reads in the input for menu operations
+                menuChoice = keyboardChoice.nextInt();
+                if (menuChoice == 1)
+                {
+                        System.out.println("Subscriptons for Subscriber!");
+                        totalRevenue();
+                }
+                else if (menuChoice == 2)
+                {
+                        System.out.println("Contracts for a certain Employee!");
+                        offersRecieved();
+                }
+                else if (menuChoice == 3)
+                {
+                        System.out.println("Insert!");
+                        horsepowerValues();
+                }
+                else if (menuChoice == 4)
+                {
+                        System.out.println("Update!");
+                        //carTypes();           //not finished
+                }
+	  else if (menuChoice == 5)
+                {
+                        System.out.println("Delete!");
+                        //carTypes();           //not finished
+                }
+	else if (menuChoice == 6)
+                {
+                        System.out.println("Publications for a certain business!");
+                        //carTypes();           //not finished
+                }
+	else if (menuChoice == 7)
+                {
+                        System.out.println("Publications that an advertiser has an ad space!");
+                        //carTypes();           //not finished
+                }
+	else if (menuChoice == 8)
+                {
+                        System.out.println("view which businesses  are also advertisers!");
+                        //carTypes();           //not finished
+                }
+else if (menuChoice == 9)
+                {
+                        System.out.println(""Enter 9 to view Which advertisers ad on a type of print\n");
+                        //carTypes();           //not finished
+                }
+
+
+                else if (menuChoice == 0)
+                {       System.out.println("Exiting!");
+                }
+                else
+                        System.out.println("Please pick a number between 1 and 9.");
+                }while ( menuChoice != 0);
+            /*
+            // Create a Statement; again, you may have/need more than one.
+            stmt = conn.createStatement ();
+
+            // Test the connection by printing out the names of your tables
+            ResultSet rset = stmt.executeQuery("select * from tab");
+ while (rset.next())
+                System.out.println(rset.getString(1));
+                */
+            /***********************************************************************/
+                //System.out.println("Exiting\n");
+        } // ends the try
+        catch(SQLException e)
+            {
+                System.out.println("Caught SQL Exception: \n     " + e);
+            }//end of catch
+
+    } //end of main
+
+	//Queries
+        //This Method get the total about of all the sold cars by joining the offers and
+        //pruchaes tables by CAR#. Leaving only the cars that have been sold and adding
+        //up their offer amou
+public static void customerprint() throws SQLException
+        {       //create statement
+		System.out.print("Enter customerid : ex: ");
+                //reads in input from user
+                custid = keyboard.readLine();
+
+                stmt = conn.createStatement ();
+                //qurey
+                ResultSet custprint = stmt.executeQuery(
+                " SELECT CNAME,ADDRESS,CITY ,ZIP
+  	+ FROM mcm122.customers JOIN mcm122.advertisers
+  	+using(custid);
+
+System.out.print("The result is " + custprint);
+        }//end of totalRevenue
+
+        //This method recives a name of an employee and then retieves all of the offers they have recieved.
+        public static void empcontracts() throws IOException, SQLException
+        {
+                String Employeeid;
+                try{
+                //keyboard = new BufferedReader(new InputStreamReader (System.in));
+                System.out.print("Enter Employee id: ex:");
+                //create statment
+                stmt = conn.createStatement();
+                //read in input
+                Employeeid = keyboard.readLine();
+                //Qurey
+                ResultSet empcon = stmt.executeQuery(
+"Select *
+  + FROM mcm122.contractsads, mcm122.contractsprinting
+  +  WHERE mcm122.contractsads.EMPID = +Employeeid+ OR
+  +   mcm122.contractsprinting.EMPID = + Employeeid);
+
+        catch(IndexOutOfBoundsException ex)
+            {
+                System.out.println("Caught IndexOutOfBoundsException: \n     " + ex);
+            }//end of catch
+
+        //return Ename.getInt(1);
+
+        }// end of offersRecived
+
+        //This method recieves a value for horse power and compares it to all other cars
+         //and returns cars with that amount of horse power or greater.
+        public static void horsepowerValues() throws SQLException, IOException
+        {
+                String hPower;
+                try{
+                System.out.print("Enter horsepower value: ");
+                //reads in input from user
+                hPower = keyboard.readLine();
+                stmt = conn.createStatement();
+                //query
+                ResultSet horsePV = stmt.executeQuery("SELECT * FROM labdataf11.cars"
+                                                + " WHERE HORSE_POWER >= " +hPower);
+                ResultSetMetaData rsmd = horsePV.getMetaData();
+                int colcount = rsmd.getColumnCount();
+                System.out.println("MAKE_MODEL        CAR#   TYPE        HORSE_POWER");
+                System.out.println("----------        ----   -------     -----------");
+                //Iterate through the result and print all columns and rows
+                while(horsePV.next())
+                {       //System.out.println(horsePV.getString(1));
+                        for(int i=1; i <=colcount; i++)
+                                System.out.print(horsePV.getString(i)+"   ");
+                        System.out.println();
+                }//end of while
+
+                horsePV.close();
+
+                }//end of try
+catch(IndexOutOfBoundsException ex)
+                {
+                        System.out.println("Caught IndexOutOfBoundsException: \n " + ex);
+                }//end catch
+                //return horseP.getInt(1);
+        }//end of horsepowerValues
+
+
+}// end of lab4 class
+
